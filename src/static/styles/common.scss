@@ -1,3 +1,42 @@
-$deep-grey: rgb(46, 47, 56);
+$deep-grey: rgb(21, 23, 40);
 $light-grey: rgba(255, 255, 255, 0.08);
 $border-grey: #6e6e6e;
+$text-grey: rgb(92, 94, 110);
+$main-backgropund-color: rgb(36, 39, 59);
+// 46, 47, 56
+
+@mixin hover-on($color: white) {
+  &:hover {
+    cursor: pointer;
+    background-color: $light-grey;
+    color: $color;
+  }
+}
+
+@mixin scrollbar-like($width:5px, $height: 5px) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $height;
+    border-radius: 10px; 
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+  &::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.8);
+    background-color: rgb(66, 66, 66);
+  } 
+}
+
+@keyframes flow-up-down {
+  10% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(20px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}

@@ -15,7 +15,11 @@ module.exports = {
         "@utils": path.resolve(__dirname, "./src/static/utils"),
         "@components": path.resolve(__dirname, "./src/components"),
         "@styles": path.resolve(__dirname, "./src/static/styles"),
-        "@static": path.resolve(__dirname, "./src/static")
+        "@static": path.resolve(__dirname, "./src/static"),
+        "@config": path.resolve(__dirname, "./src/config"),
+        "@api": path.resolve(__dirname, "./src/api"),
+        "@store": path.resolve(__dirname, "./src/store"),
+        "@icons": path.resolve(__dirname, "./src/components/icon")
       }
     }
   },
