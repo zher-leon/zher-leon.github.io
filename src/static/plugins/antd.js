@@ -1,11 +1,15 @@
-import 'ant-design-vue/dist/antd.less';
+import '@styles/custom.less';
 import {
   SettingOutlined,
   DownOutlined,
   GithubOutlined,
   WeiboOutlined,
   ZhihuOutlined,
-  QqOutlined
+  QqOutlined,
+  HomeOutlined,
+  ProjectOutlined,
+  ProfileOutlined,
+  CoffeeOutlined
 } from '@ant-design/icons-vue'
 
 // Elements
@@ -16,6 +20,13 @@ import {
   Drawer,
   Avatar,
   Divider,
+  Tabs,
+  Input,
+  InputSearch,
+  Menu,
+  SubMenu,
+  Card,
+  CardMeta
 } from 'ant-design-vue'
 
 export {
@@ -39,7 +50,11 @@ const Icons = {
   GithubOutlined,
   WeiboOutlined,
   ZhihuOutlined,
-  QqOutlined
+  QqOutlined,
+  HomeOutlined,
+  ProjectOutlined,
+  ProfileOutlined,
+  CoffeeOutlined
 }
 const Elements = {
   Alert,
@@ -47,5 +62,12 @@ const Elements = {
   Switch,
   Drawer,
   Avatar,
-  Divider
+  Divider,
+  Tabs,
+  Input,
+  InputSearch,
+  Menu,
+  SubMenu,
+  Card,
+  CardMeta
 }

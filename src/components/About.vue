@@ -40,63 +40,67 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@styles/theme.scss";
 @import "@styles/common.scss";
+
 .about {
-  background-color: $deep-grey;
-  border-radius: 5px 0 0 5px;
+  @include themify() {
+    background-color: themed('deep-grey');
+    border-radius: 5px 0 0 5px;
 
-  .top {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 50px 10px;
-
-    .info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .top {
       width: 100%;
-      font-size: 22px;
-      > div {
-        height: 50px;
-      }
-      .name {
-        margin-top: 10px;
-      }
-
-      .proverbs {
-        font-size: 14px;
-      }
-
-      .anticon {
-        font-size: 28px;
-        padding: 10px;
-        border-radius: 5px;
-        @include hover-on();
-      }
-    }
-  }
-
-  .bottom {
-    padding: 0 10px;    
-    .ant-divider {
-      color: $text-grey;
-      font-weight: 700;
-      border-color: #6e6e6e;
-    }
-    .catalogy-list {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      .item {
-        font-weight: 600;
-        font-size: 15px;
+      flex-direction: column;
+      padding: 50px 10px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 100%;
-        text-align: center;
-        padding: 5px 0;
-        @include hover-on;
+        font-size: 22px;
+        > div {
+          height: 50px;
+        }
+        .name {
+          margin-top: 10px;
+        }
+
+        .proverbs {
+          font-size: 14px;
+        }
+
+        .anticon {
+          font-size: 28px;
+          padding: 10px;
+          border-radius: 5px;
+          @include hover-on();
+        }
+      }
+    }
+
+    .bottom {
+      padding: 0 10px;    
+      .ant-divider {
+        color: themed('text-grey');
+        font-weight: 700;
+        border-color: #6e6e6e;
+      }
+      .catalogy-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .item {
+          font-weight: 600;
+          font-size: 15px;
+          width: 100%;
+          text-align: center;
+          padding: 5px 0;
+          @include hover-on;
+        }
       }
     }
   }

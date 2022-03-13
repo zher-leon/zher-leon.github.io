@@ -10,8 +10,9 @@
   "dependencies": {
     "@octokit/core": "^3.5.1",
     "ant-design-vue": "^2.2.8",
+    "antd-theme-generator": "^1.2.6",
     "core-js": "^3.6.5",
-    "less": "^4.1.2",
+    "less": "^2.7.3",
     "less-loader": "^5.0.0",
     "node-sass": "^7.0.0",
     "sass": "^1.45.0",

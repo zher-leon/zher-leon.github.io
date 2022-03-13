@@ -2,7 +2,8 @@ import note from "@utils/note.js"
 
 export default {
   setUserConfig,
-  setCatalogy
+  setCatalogy,
+  setTheme
 }
 
 /**
@@ -24,4 +25,14 @@ function setCatalogy(state, catalogy) {
   console.log('cata>>', catalogy);
   // if(!catalogy) return;
   state.catalogy = catalogy
+}
+
+/**
+ * 设置主题
+ * @param {"light" | "dark"} colorScheme 配色方案名称
+ */
+ function setTheme(state, colorScheme){
+  const body = document.getElementsByTagName("body")[0]
+  body.setAttribute("data-theme", colorScheme)
+  state.theme = colorScheme
 }

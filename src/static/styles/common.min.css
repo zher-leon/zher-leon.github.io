@@ -1,1 +1,1 @@
-@keyframes flow-up-down{10%{transform:translateY(0px)}50%{transform:translateY(20px)}100%{transform:translateY(0)}}
+@keyframes flow-up-down{from{transform:translateY(-3px)}50%{transform:translateY(3px)}to{transform:translateY(-3px)}}

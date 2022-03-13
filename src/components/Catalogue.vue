@@ -29,9 +29,12 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@styles/theme.scss";
 @import "@styles/common.scss";
 
 .catalogy {
-  background-color: $deep-grey;
+  @include themify() {
+    background-color: themed('deep-grey');
+  }
 }
 </style>

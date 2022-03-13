@@ -1,14 +1,7 @@
-$deep-grey: rgb(21, 23, 40);
-$light-grey: rgba(255, 255, 255, 0.08);
-$border-grey: #6e6e6e;
-$text-grey: rgb(92, 94, 110);
-$main-backgropund-color: rgb(36, 39, 59);
-// 46, 47, 56
-
 @mixin hover-on($color: white) {
   &:hover {
     cursor: pointer;
-    background-color: $light-grey;
+    background-color: themed('light-grey');
     color: $color;
   }
 }
@@ -28,15 +21,17 @@ $main-backgropund-color: rgb(36, 39, 59);
 }
 
 @keyframes flow-up-down {
-  10% {
-    transform: translateY(0px);
+  from {
+    transform: translateY(-3px);
   }
-
   50% {
-    transform: translateY(20px);
+    transform: translateY(3px);
   }
+  to  {
+    transform: translateY(-3px);
+  }
+}
 
-  100% {
-    transform: translateY(0);
-  }
+@mixin hide-scrollbar{
+  &::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
 }

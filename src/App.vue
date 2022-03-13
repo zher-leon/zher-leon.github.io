@@ -1,19 +1,15 @@
 <template>
-  <div class="enter" :style="{ height: screenHeight+'px' }">
-    <!-- <img :src="background" /> -->
-    <enter-canvas></enter-canvas>
-    <!-- <canvas ref="canvasRef" :style="{ height: screenHeight + 'px', width: screenWidth + 'px'}" class="canvas"></canvas> -->
-    <div class="scroll-btn">
-      <icon-base width="50" height="50" iconColor="white" @click="hanldeScrollView">
-        <arrow-down />
-      </icon-base>
-    </div>
+  <div class="enter">
+    <!-- 进入页 -->
+    <enter-canvas />
   </div>
-  <div id="main" class="main" :style="{ minHeight: screenHeight+'px' }">
-    <Catalogy v-model:text="text"/>
-    <Content />
-    <About />
-    <!-- <h1 style="color: white;">{{text}}</h1> -->
+  <div class="main" id="main">
+    <top-bar />
+    <div class="main-content">
+      <notes-menu />
+      <main-content />
+      <user-info />
+    </div>
   </div>
 </template>
 
@@ -27,8 +23,11 @@ import Content from "@components/Content.vue"
 import store from "@store/index"
 import { githubConfig } from "@config/config.js"
 import ArrowDown from "@components/icon/ArrowDown.vue"
-import background from "@/assets/enter-background.jpg"
 import EnterCanvas from "@components/EnterCanvas.vue"
+import TopBar from "@components/TopBar.vue"
+import NotesMenu from '@components/NotesMenu.vue'
+import UserInfo from '@components/UserInfo.vue'
+import MainContent from '@components/MainContent.vue'
 
 export default {
   name: 'App',
@@ -37,43 +36,44 @@ export default {
     Catalogy,
     Content,
     ArrowDown,
-    background,
-    EnterCanvas
+    EnterCanvas,
+    TopBar,
+    NotesMenu,
+    UserInfo,
+    MainContent
   },
   setup() {
-    const screenHeight = computed(() => document.body.offsetHeight)
-    const screenWidth = computed(() => document.body.offsetWidth)
     const text = ref('Hello world')
 
     return {
-      text,
-      screenHeight,
-      screenWidth,
-      background
+      text
     }
+  },
+  async created() {
+    store.commit('setTheme', 'light')
   },
   mounted() {
     store.commit('setUserConfig', githubConfig)
     store.dispatch('getRootCatalogy')
   },
   methods: {
-    hanldeScrollView() {
-      const mainDom = document.getElementById('main')
-      mainDom.scrollIntoView({behavior: "smooth"});
-    }
   },
 }
 </script>
 
 <style lang="scss">
+@import "@styles/theme.scss";
 @import "@styles/common.scss";
 
 #app, html, body {
-  margin: 0;
-  padding: 0;
-  color: #ffffff;
-  background-color: $main-backgropund-color;
-  font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+  @include themify() {
+    margin: 0;
+    padding: 0;
+    color: themed('text-white-90');
+    background-color: themed('main-background-back');
+    // font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Avenir;
+  }
 }
 
 html, body {
@@ -88,30 +88,23 @@ html, body {
 }
 
 .main {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-}
+  @include themify() {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    flex-direction: column;
 
-.enter {
-  width: 100%;
-  // background-color: black;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  .scroll-btn {
-    position: absolute;
-    margin-bottom: 50px;
-    animation: flow-up-down 3s infinite;
-    &:hover {
-      cursor: pointer;
+    .main-content {
+      display: flex;
+      // justify-content: space-between;
     }
   }
 }
 
-.canvas {
-  // color: rgba(45,140,210,0.1)
+.enter {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 </style>

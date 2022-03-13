@@ -1,11 +1,12 @@
 import note from "@utils/note.js"
 
 export default {
-  getRootCatalogy
+  getRootCatalogy,
+  getNoteFilesContenjt
 }
 
-function getRootCatalogy({ commit }) {
-  note.getCatalogue((res) => {
+async function getRootCatalogy({ commit }) {
+  await note.getCatalogue((res) => {
     const rep = res.data;
     if (res.code === 200) {
       commit('setCatalogy', rep.root_node.children)
@@ -13,4 +14,10 @@ function getRootCatalogy({ commit }) {
       console.error('网络异常或存在映射文件');
     }
   });
+}
+
+async function getNoteFilesContenjt({ commit }, filesSHA) {
+  await note.getContent(filesSHA, res => {
+    console.log('hi??', res)
+  })
 }
