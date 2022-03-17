@@ -1,9 +1,9 @@
-import note from "@utils/note.js"
 
 export default {
   setUserConfig,
   setCatalogy,
-  setTheme
+  setTheme,
+  setFileList
 }
 
 /**
@@ -11,10 +11,10 @@ export default {
  * @param {Object} userConfig 用户配置信息
  */
 function setUserConfig(state, userConfig) {
-  Object.keys(userConfig).forEach((key) => {
-    note.setGitHubConfig(key, userConfig[key]);
-  });
-  state.config = userConfig
+  // Object.keys(userConfig).forEach((key) => {
+  //   note.setGitHubConfig(key, userConfig[key]);
+  // });
+  // state.config = userConfig
 }
 
 /**
@@ -26,6 +26,11 @@ function setCatalogy(state, catalogy) {
   // if(!catalogy) return;
   state.catalogy = catalogy
 }
+
+function setFileList(state, files) {
+  state.filesInfo = files
+}
+
 
 /**
  * 设置主题

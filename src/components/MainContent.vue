@@ -1,21 +1,28 @@
 <template>
   <div class="content">
-    <template v-for="i in 3" :key="i">
-      <Article :count="i" />
+    <template v-for="(note, idx) in notesList" :key="note.name">
+      <Article :note="note" :count="idx"/>
     </template>
   </div>
 </template>
 
 <script>
-import { ref, defineComponent } from 'vue'
+import { ref, defineComponent, computed, onMounted } from 'vue'
 import Article from '@components/Article.vue'
-
+import store from '@store/index.js'
 export default defineComponent({
   components: {
     Article
   },
-  setup(){ 
+  setup(){
+    const notesList = computed(() => store.state.filesInfo)
+    // onMounted(async () => {
+    //   const test = await octokit.getNoteContent("84c96337b9e535f36421a82e707653dde42aa9e8")
+    //   // console.log('test ', Buffer.from(test.data.content, "base64").toString("utf8"))
+    //   console.log('test', test)
+    // })
     return {
+      notesList,
       screenHeight: document.body.offsetHeight - 50 + 'px'
     }
   }

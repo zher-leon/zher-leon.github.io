@@ -1,115 +1,69 @@
-import { Octokit } from "@octokit/core";
-import { createTokenAuth } from "@octokit/auth-token";
-
-const octokit_ = new Octokit();
-let token_ = "";
-
-async function getUser_(userName) {
-  /**
-   * @see https://docs.github.com/cn/rest/reference/users#get-a-user
-   */
-  let response_data = { code: -1, data: "error userName" };
-  if (userName) {
-    try {
-      const response = await octokit_.request("GET /users/{username}", {
-        username: userName,
-      });
-      response_data.code = response.status;
-      response_data.data = response.data;
-    } catch (error) {
-      const errorStr = error.toString();
-      if (errorStr.toString().indexOf("Not Found") != -1) {
-        response_data.code = 404;
-        response_data.data = "Not Found";
-      } else {
-        response_data.code = 405;
-        response_data.data = "error network";
-      }
-    }
-  }
-  return response_data;
-}
-
-async function getRepo_(login, repo, branch) {
+import tools from '@utils/tools.js'
+/**
+ * 获取存放笔记的分支下的根目录信息
+ * @returns 
+ */
+const getRepositoryContent = async function () {
   /**
    * @see https://docs.github.com/cn/rest/reference/repos#get-repository-content
    */
-  let response_data = { code: -1, data: "error" };
+  const { login, repo, branch, note_root_path } = $git
   try {
-    const response = await octokit_.request(
+    const ret = await $octokit.request(
       "GET /repos/{owner}/{repo}/contents/{path}",
       {
         owner: login,
         repo: repo,
         path: "",
-        ref: branch,
+        ref: branch
       }
-    );
-    response_data.code = response.status;
-    response_data.data = response.data;
-  } catch (error) {
-    const errorStr = error.toString();
-    if (
-      errorStr.indexOf("Not Found") != -1 ||
-      errorStr.indexOf("No commit found for the ref") != -1
-    ) {
-      response_data.code = 404;
-      response_data.data = "Not Found";
-    } else if (errorStr.indexOf("Found") != -1) {
-      response_data.code = 302;
-      response_data.data = "Found";
-    } else if (errorStr.indexOf("Forbidden") != -1) {
-      response_data.code = 403;
-      response_data.data = "Found";
-    } else {
-      response_data.code = 405;
-      response_data.data = "error network";
+    )
+    let catalogyTree = null
+    for(const item of ret.data) {
+      if(item.type !== 'dir' || item.name !== note_root_path)
+        return Promise.reject('目录类型错误或指定笔记目录不存在')
+      const o = await getStructureBySHA(item.sha)
+      catalogyTree = tools.createCatalogyTree(o.data)
     }
+    return Promise.resolve(catalogyTree)
+  } catch (err) {
+    console.error('err>>', err.toString())
+    return Promise.reject('errMsg:', err)
   }
-  return response_data;
 }
 
-async function getTree_(login, repo, branch, sha) {
-  /**
-   * @see https://docs.github.com/cn/rest/reference/git#get-a-tree
-   */
-  let response_data = { code: -1, data: "error" };
+/**
+ * 通过SHA去获取该SHA指向的结构信息
+ * @param {String} sha 哈希值
+ * @returns 
+ */
+const getStructureBySHA = async function(sha) {
+  const { login, repo, branch } = $git
   try {
-    const response = await octokit_.request(
+    const ret = await $octokit.request(
       "GET /repos/{owner}/{repo}/git/trees/{tree_sha}",
       {
         owner: login,
         repo: repo,
         tree_sha: sha,
         ref: branch,
-        recursive: true,
+        recursive: true // 是否递归的方式
       }
-    );
-    response_data.code = response.status;
-    response_data.data = response.data;
-  } catch (error) {
-    const errorStr = error.toString();
-    if (
-      errorStr.indexOf("Not Found") != -1 ||
-      errorStr.indexOf("No commit found for the ref") != -1
-    ) {
-      response_data.code = 404;
-      response_data.data = "Not Found";
-    } else {
-      response_data.code = 405;
-      response_data.data = "error network";
-    }
+    )
+    return ret
+  } catch(err) {
+    console.error('err', err)
+    return Promise.reject('errMsg:', err.toString())
   }
-  return response_data;
 }
 
-async function getContent_(login, repo, branch, sha) {
+async function getNoteContent(sha) {
   /**
    * @see https://docs.github.com/cn/rest/reference/git#get-a-blob
    */
-  let response_data = { code: -1, data: "error" };
+  const { login, repo, branch } = $git
   try {
-    const response = await octokit_.request(
+    const ret = await $octokit.request(
       "GET /repos/{owner}/{repo}/git/blobs/{file_sha}",
       {
         owner: login,
@@ -118,45 +72,16 @@ async function getContent_(login, repo, branch, sha) {
         ref: branch,
       }
     );
-    response_data.code = response.status;
-    response_data.data = response.data;
+    const fileContent = Buffer.from(ret.data.content, "base64").toString("utf8")
+    return Promise.resolve(fileContent)
   } catch (error) {
     const errorStr = error.toString();
-    if (
-      errorStr.indexOf("Not Found") != -1 ||
-      errorStr.indexOf("No commit found for the ref") != -1
-    ) {
-      response_data.code = 404;
-      response_data.data = "Not Found";
-    } else {
-      response_data.code = 405;
-      response_data.data = "error network";
-    }
+    return Promise.reject('errMsg:', errorStr)
   }
-  return response_data;
 }
-export default {
-  setToken(token) {
-    if (token_ === token) return;
-    token_ = token;
-    const auth = createTokenAuth(token_);
-    octokit_.hook.wrap("request", auth.hook);
-    octokit_.auth = auth;
-  },
 
-  async getUser(userName, callback) {
-    return callback(await getUser_(userName));
-  },
-
-  async getRepo(login, repo, branch, callback) {
-    return callback(await getRepo_(login, repo, branch));
-  },
-
-  async getTree(login, repo, branch, sha, callback) {
-    return callback(await getTree_(login, repo, branch, sha));
-  },
-
-  async getContent(login, repo, branch, sha, callback) {
-    return callback(await getContent_(login, repo, branch, sha));
-  },
-};
+export default{
+  getRepositoryContent,
+  getStructureBySHA,
+  getNoteContent
+}

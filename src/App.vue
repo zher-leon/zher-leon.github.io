@@ -17,8 +17,6 @@
 /* eslint-disable */
 import { ref, computed, onMounted } from 'vue'
 import tools from '@utils/tools'
-import About from "@components/About.vue"
-import Catalogy from "@components/Catalogue.vue"
 import Content from "@components/Content.vue"
 import store from "@store/index"
 import { githubConfig } from "@config/config.js"
@@ -32,8 +30,6 @@ import MainContent from '@components/MainContent.vue'
 export default {
   name: 'App',
   components: {
-    About,
-    Catalogy,
     Content,
     ArrowDown,
     EnterCanvas,

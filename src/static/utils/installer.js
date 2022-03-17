@@ -30,5 +30,7 @@ const installPlugins = async function(app){
 
 const modules = {
   antd: () => import("../plugins/antd.js"),
-  global: () => import("../plugins/global-component.js")
+  global: () => import("../plugins/global-component.js"),
+  git: () => import('../plugins/gitConfig.js'),
+  octokit: () => import('../plugins/octokit.js')
 }
