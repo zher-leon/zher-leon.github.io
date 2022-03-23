@@ -4,8 +4,10 @@
     <!-- <div class="title">
       <span>{{ title }}</span>
     </div> -->
-    <div class="article" :style="{'-webkit-line-clamp': isExpand ? null : 5}" @click="isExpand = !isExpand">
-      {{ content }}
+    <div class="article" :style="{'max-height': isExpand ? null : '300px'}" @click="isExpand = !isExpand">
+      <!-- md-editor中使用了Katex来展示数据公式, 不设置noKatex会有一些警告, 但不影响渲染, 目前开发不想看警告, 先关掉吧 -->
+      <a-skeleton v-if="!content"/>
+      <md-editor else v-model="content" theme="dark" :previewOnly="true" noKatex/>
     </div>
     <div class="footer">
       <span>Last Commit 2022/02/02 By Zher Leon</span>
@@ -14,14 +16,17 @@
 </template>
 
 <script>
-import { ref, defineComponent, computed, toRefs, watchEffect, onMounted } from 'vue'
+import { ref, defineComponent, computed, toRefs, watchEffect, onMounted, watch } from 'vue'
 import Star from '@icons/Star.vue'
 import myAvatar from "@static/image/avatar.png"
 import githubApi from '@/api/github.js'
+import MdEditor from 'md-editor-v3'
+import 'md-editor-v3/lib/style.css'
 
 export default defineComponent({
   components: {
-    Star
+    Star,
+    MdEditor
   },
   props: {
     count: {
@@ -43,15 +48,17 @@ export default defineComponent({
     
     const isExpand = ref(false)
     
-    watchEffect(() => {
-      isExpand.value = expand.value
+    // watchEffect(() => {
+    //   isExpand.value = expand.value
+    //   console.log('isExpand change>>>', isExpand.value)
+    // })
+
+    watch(isExpand, val => {
+      console.log('isExpand>>', val)
     })
     
     let content = ref('')
-    // const content = computed(async() => {
-    //   const o = await githubApi.getNoteContent(note.value.sha)
-    //   return o
-    // })
+
     onMounted(async () => {
       content.value = await githubApi.getNoteContent(note.value.sha)
       console.log('hi')
@@ -75,8 +82,6 @@ export default defineComponent({
 .article-wrapper {
   @include themify() {
     width: 100%;
-    // height: 300px;
-    // max-height: 300px;
     border-radius: 10px;
     background-color: themed('block-background');
     border: 1px solid themed('border-color');
@@ -84,12 +89,12 @@ export default defineComponent({
     margin-bottom: 30px;
     margin-top: 10px;
     flex: 1;
-    padding: 20px 30px;
-    // overflow: hidden;
+    padding: 10px 30px 20px 30px;
 
     .star {
       position: absolute;
       top: -20px;
+      z-index: 100;
       // right: -20px;
     }
 
@@ -118,6 +123,10 @@ export default defineComponent({
       justify-content: flex-end;
       color: themed('text-grey');
       margin-top: 20px;
+    }
+
+    :deep(.md-preview-wrapper) {
+      background: themed('block-background') !important;
     }
   }
 }

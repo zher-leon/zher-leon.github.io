@@ -32,5 +32,6 @@ const modules = {
   antd: () => import("../plugins/antd.js"),
   global: () => import("../plugins/global-component.js"),
   git: () => import('../plugins/gitConfig.js'),
-  octokit: () => import('../plugins/octokit.js')
+  octokit: () => import('../plugins/octokit.js'),
+  // 'md-editor': () => import('../plugins/md-editor.js')
 }
