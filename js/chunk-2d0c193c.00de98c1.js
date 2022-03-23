@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0c193c"],{4747:function(n,o,t){"use strict";t.r(o),t.d(o,"install",(function(){return e}));var e=function(n){var o={login:"zher-leon",repo:"github.io.zher-leon",branch:"Notes",note_root_path:"NoteRoot",deployment_ciphertext:"nbrQ3EO7u+6g8SWPc6X5NTZvS5kccFvGnaYlO9hzGpyzIUUJhc7dzmJcOQtFDd8+"};return window.$git=o,console.log("hi"),o}}}]);
+//# sourceMappingURL=chunk-2d0c193c.00de98c1.js.map
