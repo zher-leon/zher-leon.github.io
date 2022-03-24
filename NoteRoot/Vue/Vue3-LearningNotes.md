@@ -1,11 +1,3 @@
-# Vue3 Learning Notes
-
-Author: Zher Leon
-
-Last Update: Aug 29, 2021
-
----
-
 ### ⏳插槽
 
 #### 具名插槽

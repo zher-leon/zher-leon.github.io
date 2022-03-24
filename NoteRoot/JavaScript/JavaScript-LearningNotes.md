@@ -1,11 +1,3 @@
-# JavaScript Learning Notes
-
-Author: Zher Leon
-
-Last Update: Aug 29, 2021
-
----
-
 ### ⏳ 类 - Class
 
 - 声明

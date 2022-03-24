@@ -1,11 +1,3 @@
-# Vuex Learning Notes
-
-Author: Zher Leon
-
-Last Update: Aug 29, 2021
-
----
-
 ### ⏳ Vuex
 
 ​	专为vue.js开发的状态管理模式，也集中到Vue devtools中进行调试。
