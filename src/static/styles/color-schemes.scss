@@ -1,5 +1,7 @@
 $themes: (
   light: (
+    primary-color: #9C8DEA,
+    purple-hover: #6c639f,
     deep-grey: rgb(21, 23, 40),
     light-grey: rgba(255, 255, 255, 0.08),
     border-grey: #6e6e6e,
@@ -10,9 +12,14 @@ $themes: (
     block-background: #161B22,
     border-shadow: #514a62,
     border-color: #303030,
+    text-1: #353342,
+    text-2: #4A4A4A,
+    text-3: #757575,
   ),
 
   dark: (
+    primary-color: #9C8DEA,
+    purple-hover: #6c639f,
     deep-grey: rgb(21, 23, 40),
     light-grey: rgba(255, 255, 255, 0.08),
     border-grey: #6e6e6e,
@@ -22,6 +29,9 @@ $themes: (
     main-background-back: #010409,
     block-background: #161B22,
     border-shadow: #423D4F,
-    border-color: #303030
+    border-color: #303030,
+    text-1: #353342,
+    text-2: #4A4A4A,
+    text-3: #757575,
   )
 )

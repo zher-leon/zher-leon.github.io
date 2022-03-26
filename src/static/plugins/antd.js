@@ -27,7 +27,9 @@ import {
   SubMenu,
   Card,
   CardMeta,
-  Skeleton
+  Skeleton, 
+  Spin,
+  Tag
 } from 'ant-design-vue'
 
 export {
@@ -71,5 +73,7 @@ const Elements = {
   SubMenu,
   Card,
   CardMeta,
-  Skeleton
+  Skeleton,
+  Spin,
+  Tag
 }

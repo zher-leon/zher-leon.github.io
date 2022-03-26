@@ -11,31 +11,36 @@
       </template>
       <div class="detail">
         <div class="detail-info">
-          <a-avatar :src="myAvatar" :size="80"/>
-          <span class="name">Zher Leon</span>
+          <a-avatar :src="info?.avatar_url" :size="80"/>
+          <span class="name">{{ info?.login }}</span>
         </div>
         <div style="padding-top: 30px">
-          这个家伙很懒，什么都没有留下~
+          {{ info?.bio }}
         </div>
       </div>
     </a-card>
   </div>
 </template>
 <script>
-import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons-vue';
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import myAvatar from "@static/image/avatar.png"
 import InfoBackground from "@static/image/infobg.jpg"
+import githubApi from '@api/github.js'
 export default defineComponent({
   components: {
-    SettingOutlined,
-    EditOutlined,
-    EllipsisOutlined,
   },
   setup() {
+    const info = ref(null)
+
+    onMounted(async () => {
+      info.value = await githubApi.getUserInfomation()
+      console.log('info>>', info)
+    })
+    
     return {
       myAvatar,
-      InfoBackground
+      InfoBackground,
+      info
     }
   }
 });

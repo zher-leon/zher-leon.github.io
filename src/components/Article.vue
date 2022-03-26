@@ -1,16 +1,23 @@
 <template>
   <div class="article-wrapper">
     <Star class="star" :style="{[startPosition]: -20 + 'px'}"/>
-    <!-- <div class="title">
+    <div class="title">
+      <a-tag :color="colorMap[noteType]">{{ noteType }}</a-tag>
       <span>{{ title }}</span>
-    </div> -->
-    <div class="article" :style="{'max-height': isExpand ? null : '300px'}" @click="isExpand = !isExpand">
+      <div class="divider"></div>
+    </div>
+    <div class="article" :style="{'max-height': isExpand ? null : '300px'}">
       <!-- md-editor中使用了Katex来展示数据公式, 不设置noKatex会有一些警告, 但不影响渲染, 目前开发不想看警告, 先关掉吧 -->
       <a-skeleton v-if="!content"/>
       <md-editor else v-model="content" theme="dark" :previewOnly="true" noKatex/>
     </div>
     <div class="footer">
-      <span>Last Commit 2022/02/02 By Zher Leon</span>
+      <div class="operation" @click="isExpand = !isExpand">
+        {{ isExpand ? '收起' : '阅读全文'}} 
+        <icon-base class="icon" height="12" width="12" iconColor="" :is-expand="isExpand">
+          <arrow-down />
+        </icon-base>
+      </div>
     </div>
   </div>
 </template>
@@ -22,11 +29,19 @@ import myAvatar from "@static/image/avatar.png"
 import githubApi from '@/api/github.js'
 import MdEditor from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
+import ArrowDown from '@icons/ArrowDown.vue'
+
+const colorMap = {
+  JavaScript: 'red',
+  Vue: 'orange',
+  Vuex: 'purple'
+}
 
 export default defineComponent({
   components: {
     Star,
-    MdEditor
+    MdEditor,
+    ArrowDown
   },
   props: {
     count: {
@@ -43,33 +58,27 @@ export default defineComponent({
     }
   },
   setup(props){ 
-    const { count, expand, note } = toRefs(props)
+    const { count, note } = toRefs(props)
     const startPosition = computed(() => count.value % 2 === 0 ? 'right' : 'left')
     
     const isExpand = ref(false)
-    
-    // watchEffect(() => {
-    //   isExpand.value = expand.value
-    //   console.log('isExpand change>>>', isExpand.value)
-    // })
-
-    watch(isExpand, val => {
-      console.log('isExpand>>', val)
-    })
-    
+    const title = computed(() => note.value.name.split('.md')[0])
+    const noteType = computed(() => note.value.path.split('/').at(-2))
     let content = ref('')
 
     onMounted(async () => {
       content.value = await githubApi.getNoteContent(note.value.sha)
-      console.log('hi')
-      // console.log('content', content)
+      console.log('note>>', note)
     })
 
     return {
       startPosition,
       myAvatar,
       isExpand,
-      content
+      content,
+      title,
+      colorMap,
+      noteType
     }
   }
 })
@@ -99,11 +108,16 @@ export default defineComponent({
     }
 
     .title {
-      padding-left: 20px; 
       font-size: 18px;
       font-weight: 600;
       margin: 10px 0;
       // margin-top: 10px;
+
+      .divider {
+        border-top: 2px solid themed('text-1');
+        margin-top: 15px;
+
+      }
     }
 
     .article {
@@ -121,12 +135,35 @@ export default defineComponent({
     .footer {
       display: flex;
       justify-content: flex-end;
-      color: themed('text-grey');
+      align-items: center;
       margin-top: 20px;
+      .operation {
+        color: themed('primary-color');
+        cursor: pointer;
+        &:hover {
+          color: themed('purple-hover');
+          .icon {
+            fill: themed('purple-hover');
+          }
+        }
+        .icon {
+          fill: themed('primary-color');
+          margin: auto 0;
+          margin-left: 5px;
+          transition: transform .3s;
+          &[is-expand="true"] {
+            transform: rotate(180deg);
+          }
+        }
+      }
     }
 
     :deep(.md-preview-wrapper) {
       background: themed('block-background') !important;
+    }
+
+    :deep(.ant-tag) {
+      padding: 3px 10px;
     }
   }
 }

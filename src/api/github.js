@@ -80,8 +80,48 @@ async function getNoteContent(sha) {
   }
 }
 
+async function getCommitStatusBySHA(sha) {
+  /**
+   * @see https://docs.github.com/cn/rest/reference/commits#list-commit-statuses-for-a-reference
+   */
+  const { login, repo } = $git
+  try {
+    const ret = await $octokit.request(
+      "GET /repos/{owner}/{repo}/commits/{ref}/statuses",
+      {
+        owner: login,
+        repo: repo,
+        ref: sha
+      }
+    )
+    return Promise.resolve(ret.data)
+  } catch (error) {
+    const errorStr = error.toString()
+    return Promise.reject('error Message: ', errorStr)
+  }
+}
+
+async function getUserInfomation() {
+  /**
+   * @see https://docs.github.com/cn/rest/reference/users#get-a-user
+   */
+  const { login } = $git
+  try {
+    const ret = await $octokit.request(
+      "GET /users/{username}", { username: login }
+    )
+    console.log('user info ', ret.data)
+    return Promise.resolve(ret.data)
+  } catch (error) {
+    const errorStr = error.toString()
+    return Promise.reject('error Message:', errorStr)
+  }
+}
+
 export default{
   getRepositoryContent,
   getStructureBySHA,
-  getNoteContent
+  getNoteContent,
+  getCommitStatusBySHA,
+  getUserInfomation
 }

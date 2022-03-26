@@ -1,8 +1,16 @@
 <template>
   <div class="content">
-    <template v-for="(note, idx) in notesList" :key="note.name">
-      <Article :note="note" :count="idx"/>
-    </template>
+    <!-- Suspense 其实还是个实验性的语法 - 2022/3/26 -->
+    <suspense>
+      <template #default>
+        <template v-for="(note, idx) in notesList" :key="note.name">
+          <Article :note="note" :count="idx"/>
+        </template>
+      </template>
+      <template #fallback>
+        <a-spin />
+      </template>
+    </suspense>
   </div>
 </template>
 

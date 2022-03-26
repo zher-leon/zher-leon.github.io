@@ -3,7 +3,6 @@ import { createTokenAuth } from '@octokit/auth-token'
 import { githubConfig } from "@config/config.js"
 
 const install = function() {
-  console.log('gitInof', githubConfig)
   const _octokit = new Octokit()
 
   // token 在写文件的时候需要用到

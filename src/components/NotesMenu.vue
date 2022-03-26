@@ -37,7 +37,6 @@ export default defineComponent({
   setup() {
     const screenHeight = computed(() => (document.body.offsetHeight - 50) + 'px')
     const notes = computed(() => store.state.catalogy)
-    console.log('notes>>', notes)
     const selectedKeys = ref(['']);
     const openKeys = ref(['']);
     

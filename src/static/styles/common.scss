@@ -1,7 +1,9 @@
-@mixin hover-on($color: white) {
+@mixin hover-on($color: white, $hover: themed('light-grey')) {
+  border-radius: 3px;
+  padding: 3px;
   &:hover {
     cursor: pointer;
-    background-color: themed('light-grey');
+    background-color: $hover;
     color: $color;
   }
 }
@@ -34,4 +36,8 @@
 
 @mixin hide-scrollbar{
   &::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
+}
+
+@mixin button-like($padding: 5px, $raduis: 6px) {
+  
 }

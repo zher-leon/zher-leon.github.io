@@ -41,7 +41,6 @@ function createCatalogyTree(obj) {
     children: [],
   }
   const files = []
-  console.log('trees', trees)
   tree_map[note_root_path] = root_node;
   for(let item of trees) {
     let { path, sha, type } = item;
