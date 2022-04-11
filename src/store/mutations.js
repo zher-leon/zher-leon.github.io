@@ -3,7 +3,8 @@ export default {
   setUserConfig,
   setCatalogy,
   setTheme,
-  setFileList
+  setFileList,
+  setCurrentPage
 }
 
 /**
@@ -40,4 +41,11 @@ function setFileList(state, files) {
   const body = document.getElementsByTagName("body")[0]
   body.setAttribute("data-theme", colorScheme)
   state.theme = colorScheme
+}
+
+
+function setCurrentPage(state, page) {
+  if(!page)
+    return ;
+  state.currentPage = page
 }

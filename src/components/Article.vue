@@ -1,11 +1,15 @@
 <template>
   <div class="article-wrapper">
     <Star class="star" :style="{[startPosition]: -20 + 'px'}"/>
-    <div class="title">
+    <div class="header">
       <a-tag :color="colorMap[noteType]">{{ noteType }}</a-tag>
-      <span>{{ title }}</span>
+      <span class="title">{{ title }}</span>
+      <span class="about">
+        <span>Last Commit by {{ lastCommit?.name }} on {{ lastCommit?.date }} </span>
+      </span>
       <div class="divider"></div>
     </div>
+
     <div class="article" :style="{'max-height': isExpand ? null : '300px'}">
       <!-- md-editor中使用了Katex来展示数据公式, 不设置noKatex会有一些警告, 但不影响渲染, 目前开发不想看警告, 先关掉吧 -->
       <a-skeleton v-if="!content"/>
@@ -64,11 +68,21 @@ export default defineComponent({
     const isExpand = ref(false)
     const title = computed(() => note.value.name.split('.md')[0])
     const noteType = computed(() => note.value.path.split('/').at(-2))
+    const commitInfo = ref({})
     let content = ref('')
 
     onMounted(async () => {
       content.value = await githubApi.getNoteContent(note.value.sha)
-      console.log('note>>', note)
+      commitInfo.value = await githubApi.getCommitStatusBySHA(note.value.path)
+    })
+
+    const lastCommit = computed(() => {
+      const commit = commitInfo.value?.[0]?.commit.committer
+      console.log('commit', commit)
+      if(commit) {
+        commit.date = new Date(commit?.date).toLocaleString()
+      }
+      return commit
     })
 
     return {
@@ -78,7 +92,8 @@ export default defineComponent({
       content,
       title,
       colorMap,
-      noteType
+      noteType,
+      lastCommit
     }
   }
 })
@@ -107,16 +122,23 @@ export default defineComponent({
       // right: -20px;
     }
 
-    .title {
-      font-size: 18px;
-      font-weight: 600;
+    .header {
       margin: 10px 0;
-      // margin-top: 10px;
 
       .divider {
         border-top: 2px solid themed('text-1');
-        margin-top: 15px;
+        margin-top: 10px;
+      }
 
+      .about {
+        display: block;
+        margin: 5px 0;
+        color: themed('text-grey')
+      }
+
+      .title {
+        font-size: 18px;
+        font-weight: 600;
       }
     }
 
@@ -129,7 +151,6 @@ export default defineComponent({
       display: -webkit-box;
       // -webkit-line-clamp: 5; //想要的行数
       -webkit-box-orient: vertical;
-      cursor: pointer;
     }
 
     .footer {

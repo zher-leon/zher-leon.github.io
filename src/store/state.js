@@ -1,5 +1,6 @@
 const state = {
   theme: 'dark',
+  currentPage: 'main',
   // 用户基本信息
   config: {
     login: "",

@@ -4,8 +4,8 @@
       <div class="logo">
         Zher 的小破站
       </div>
-      <a-tabs default-active-key="1" class="tabs-wrapper">
-        <a-tab-pane key="1">
+      <a-tabs default-active-key="main" class="tabs-wrapper" v-model:activeKey="currentPage">
+        <a-tab-pane key="main">
           <template #tab>
             <span class="tab">
               <HomeOutlined style="font-size:18px"/>
@@ -13,7 +13,7 @@
             </span>
           </template>
         </a-tab-pane>
-        <a-tab-pane key="2">
+        <a-tab-pane key="timeline">
           <template #tab>
             <span class="tab">
               <ProfileOutlined style="font-size:18px"/>
@@ -21,7 +21,7 @@
             </span>
           </template>
         </a-tab-pane>
-        <a-tab-pane key="3">
+        <a-tab-pane key="works">
           <template #tab>
             <span class="tab">
               <ProjectOutlined style="font-size:18px"/>
@@ -29,7 +29,7 @@
             </span>
           </template>
         </a-tab-pane>
-        <a-tab-pane key="4">
+        <a-tab-pane key="aboutme">
           <template #tab>
             <span class="tab">
               <CoffeeOutlined style="font-size:18px"/>
@@ -56,8 +56,10 @@
 </template>
 
 <script>
-import { ref, defineComponent } from "vue";
+import { ref, defineComponent, watch } from "vue";
 import ThemeDark from '@icons/ThemeDark.vue';
+import store from '@store/index.js'
+import router from '@/router/index.js'
 
 export default defineComponent({
   components: {
@@ -65,11 +67,18 @@ export default defineComponent({
   },
   setup() {
     const searchVal = ref(null)
+    const currentPage = ref('main')
+    watch(currentPage, val => {
+      console.log('val>>', val)
+      router.push(`/${val}`)
+      // store.commit('setCurrentPage', val)
+    })
     const onSearch = function() {
 
     }
     return {
       searchVal,
+      currentPage,
       onSearch
     };
   },

@@ -80,18 +80,19 @@ async function getNoteContent(sha) {
   }
 }
 
-async function getCommitStatusBySHA(sha) {
+async function getCommitStatusBySHA(path) {
   /**
    * @see https://docs.github.com/cn/rest/reference/commits#list-commit-statuses-for-a-reference
    */
-  const { login, repo } = $git
+  const { login, repo, branch } = $git
   try {
     const ret = await $octokit.request(
-      "GET /repos/{owner}/{repo}/commits/{ref}/statuses",
+      "GET /repos/{owner}/{repo}/commits",
       {
         owner: login,
         repo: repo,
-        ref: sha
+        path: path,
+        sha: branch
       }
     )
     return Promise.resolve(ret.data)

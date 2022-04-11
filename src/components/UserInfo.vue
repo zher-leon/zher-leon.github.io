@@ -34,7 +34,6 @@ export default defineComponent({
 
     onMounted(async () => {
       info.value = await githubApi.getUserInfomation()
-      console.log('info>>', info)
     })
     
     return {

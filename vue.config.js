@@ -19,7 +19,8 @@ module.exports = {
         "@config": path.resolve(__dirname, "./src/config"),
         "@api": path.resolve(__dirname, "./src/api"),
         "@store": path.resolve(__dirname, "./src/store"),
-        "@icons": path.resolve(__dirname, "./src/components/icon")
+        "@icons": path.resolve(__dirname, "./src/components/icon"),
+        "@views": path.resolve(__dirname, "./src/views")
       }
     }
   },

@@ -1,0 +1,20 @@
+<template>
+  <div>Timeline</div>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  components: {
+  },
+  setup(){ 
+    return {
+    }
+  }
+}
+</script>
+
+<style lang='scss'>
+  
+</style>

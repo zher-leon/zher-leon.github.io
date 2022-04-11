@@ -12,7 +12,8 @@
       "@components/*": ["src/components/*"],
       "@views/*": ["src/views/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@icons/*": ["src/icons/*"]
+      "@icons/*": ["src/icons/*"],
+      "@styles/*": ["src/static/styles/*"]
     },
     "target": "ES6",
     "module": "commonjs",
