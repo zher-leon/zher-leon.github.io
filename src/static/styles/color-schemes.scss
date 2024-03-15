@@ -1,0 +1,137 @@
+$themes: (
+  light: (
+    primary-color: #7859bc,
+    primary-background: rgba(#7859bc, .08),
+
+    highlight-1: #ff7f34,
+    background: #F6F6F7,
+    background-secondary: #f7f7f7,
+    // highlight-background:
+    text-black: #1F1C2E,
+    text-blue-default: #2a75a9,
+    icon-background: #2a75a9,
+
+    black-1: #353342,
+    black-2: #3F3F3F,
+    black-3: #4A4A4A,
+    black-4: #acacac,
+    black-5: #D8D8D8,
+    black-6: #F6F6F7,
+
+    black-03: rgba(#000, .03),
+    black-05: rgba(#000, .05),
+    black-10: rgba(#000, .1),
+    black-15: rgba(#000, .15),
+    black-25: rgba(#000, .25),
+    black-50: rgba(#000, .5),
+    black-75: rgba(#000, .75),
+    black-90: rgba(#000, .9),
+
+    shadow-black-10: rgba(#000, .1),
+    shadow-black-25: rgba(#000, .25),
+    shadow-black-50: rgba(#000, .5),
+    shadow-black-75: rgba(#000, .75),
+    shadow-black-90: rgba(#000, .9),
+
+    text-1: #353342,
+    text-2: #4A4A4A,
+    text-3: #757575,
+    text-4: #d9d9d9,
+
+    border-default: rgba(#000, .1),
+    optional-border-default: transparent,
+
+    card-background-1: white,
+    card-white: #ffffff,
+
+    green: #2b8100,
+    red: rgb(190, 0, 9),
+
+    text-title: #353342,
+    text-assistant: #7A7A7A,
+
+    radius-hover: 4px,
+    radius-wrapper: 31.5px,
+
+    disabled-white: #f5f5f5,
+    disabled-background-white: #d9d9d9,
+
+    white: white,
+    black: black,
+
+    ant-error-color: #ff4d4f,
+    ant-error-color-outline: rgba(255, 77, 79, .2),
+
+    mask: rgba(#fff, .7)
+  ),
+
+  dark: (
+    primary-color: #9260ff,
+    primary-background: rgba(#9260ff, .12),
+    highlight-1: #ff7f34,
+    background: #161618,
+    background-secondary: #1e1e20,
+    // highlight-background:
+    text-black: #ebebeb,
+    text-blue-default: #208dd5,
+    icon-background: #1b76bb,
+
+    black-1: #121212,
+    black-2: #3F3F3F,
+    black-3: #4A4A4A,
+    black-4: #acacac,
+    black-5: #D8D8D8,
+    black-6: #F6F6F7,
+
+    black-05: rgba(#fff, .05),
+    black-10: rgba(#fff, .1),
+    black-15: rgba(#fff, .15),
+    black-25: rgba(#fff, .25),
+    black-50: rgba(#fff, .5),
+    black-75: rgba(#fff, .75),
+    black-90: rgba(#fff, .9),
+
+    shadow-black-10: transparent,
+    shadow-black-25: transparent,
+    shadow-black-50: transparent,
+    shadow-black-75: transparent,
+    shadow-black-90: transparent,
+
+    text-1: #ebebeb,
+    text-2: #acacac,
+    text-3: #757575,
+    text-4: #474747,
+
+    border-default: #3b4046,
+    optional-border-default: rgba(255, 255, 255, 0.1),
+
+    card-background-1: rgb(34, 34, 34),
+    card-white: #1d1d1d,
+
+    blue-1: #12496e,
+    blue-2: #076BAF,
+
+    green: #449c47,
+    red: #b11c1c,
+
+    device-item-id: #12496e,
+    device-item-background: rgba(#fff, .07),
+
+    text-title: #353342,
+    text-assistant: #7A7A7A,
+
+    radius-hover: 4px,
+    radius-wrapper: 31.5px,
+
+    disabled-white: #f5f5f5,
+    disabled-background-white: #d9d9d9,
+
+    white: black,
+    black: white,
+
+    ant-error-color: #ff4d4f,
+    ant-error-color-outline: rgba(255, 77, 79, .2),
+
+    mask: rgba(#000, .5)
+  )
+)

@@ -1,0 +1,74 @@
+/**
+ 来自 https://tobiasahlin.com/spinkit/
+**/
+@import "@styles/common.scss";
+
+.spin-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.spin-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: var(--mask);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: var(--primary-color);
+  transition: all 2s ease-in-out;
+
+  .description {
+    font-size: 12px;
+    font-weight: 700;
+  }
+}
+
+.spinner {
+  text-align: center;
+
+  & > div { 
+    background-color: var(--primary-color);
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  }
+
+  & > div:not(:first-child) {
+    margin-left: 4px;
+  } 
+
+  .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+
+  .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}

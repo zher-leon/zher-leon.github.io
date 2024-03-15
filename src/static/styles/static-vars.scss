@@ -1,0 +1,9 @@
+@import './color-schemes.scss';
+
+@each $theme-name, $theme-map in $themes {
+  body[data-theme=#{$theme-name}] {
+    @each $key in map-keys($theme-map) {
+      --#{"" + $key}: #{map-get($theme-map, $key)};
+    }
+  }
+}

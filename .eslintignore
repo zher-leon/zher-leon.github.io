@@ -1,0 +1,8 @@
+/public
+/dist
+/uni_modules
+/node_modules
+index.html
+/src/components/icons/
+static
+.vscode

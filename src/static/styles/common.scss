@@ -1,0 +1,35 @@
+@mixin scrollbar-like($thin: 6px, $cornerSize: 0px, $thumb-bg: rgba(#000, .15), $thumb-hover-bg: rgba(#000, .5)) {
+  // 滚动条背景
+  &::-webkit-scrollbar {
+    width: $thin;
+    height: $thin;
+    right: 20px;
+    border-radius: 10px;
+  }
+  // 滚动条的拖动部分（前景）
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $thumb-bg;
+    &:hover {
+      background-color: $thumb-hover-bg;
+    }
+  }
+
+  &::-webkit-scrollbar-button {
+    /* 横向滚动条 宽度 */
+    width: $cornerSize;
+    /* 纵向滚动条 高度 */
+    height: $cornerSize;
+    background: transparent !important;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+}
+
+@mixin fix-icon-park {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
