@@ -65,7 +65,9 @@ export const getRepositoryContent = async (): Promise<CatalogyTree> => {
   const data = Array.isArray(ret.data) ? ret.data : [ret.data]
   const promiseList = []
   data.forEach(item => {
-    promiseList.push(getStructureBySHA(item.sha))
+    if (item.name !== '.gitignore') {
+      promiseList.push(getStructureBySHA(item.sha))
+    }
   })
   const structure = await Promise.all(promiseList)
   return createCatalogyTree(structure[0].data)
