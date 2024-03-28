@@ -72,7 +72,9 @@ export function createCatalogyTree(structure: OctokitTreeStructure): CatalogyTre
   for(let item of tree) {
     let { path, sha, type } = item;
     // 跳过忽视文件
-    if (path.indexOf(".gitignore") != -1) return;
+    if (path.indexOf('.assets') !== -1) {
+      continue;
+    }
     let pathSplit = path.split("/");
     // 新节点
     let newNode: TreeNode = {
@@ -84,8 +86,7 @@ export function createCatalogyTree(structure: OctokitTreeStructure): CatalogyTre
     //找最后一个"/"的索引
     let index = path.lastIndexOf("/");
     // 获取父节点的key
-    let preKey =
-      index === -1 ? noteRoot : path.substr(0, index);
+    let preKey = index === -1 ? noteRoot : path.substr(0, index);
     treeMap[preKey].children.push(newNode); //父节点添加当前节点
     treeMap[path] = newNode; //存入当前节点
     if(type === 'blob') {
