@@ -66,7 +66,7 @@
 
 <script setup lang="tsx">
 import EasyMenu from '@/components/EasyMenu'
-import { CatalogyTree, TreeNode } from '@/static/utils/tools'
+import { CatalogyTree, TreeNode, detectLinkAndConvert } from '@/static/utils/tools'
 import { getNoteContent, getRepositoryContent, getUserInfo } from '@api/github'
 import { message } from 'ant-design-vue'
 import { ref } from 'vue'
@@ -155,9 +155,9 @@ const handleOpenChange = (menuInfo: MenuInfo) => {
 
   getNoteContent(key)
     .then(file => {
-      content.value = file
+      const { allFiles, allImages } = repositioryContent.value
+      content.value = detectLinkAndConvert(file, allImages)
 
-      const { allFiles } = repositioryContent.value
       currentFile.value = allFiles.find(e => e.sha === key)
     })
     .finally(() => {

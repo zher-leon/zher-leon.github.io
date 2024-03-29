@@ -70,6 +70,8 @@ export const getRepositoryContent = async (): Promise<CatalogyTree> => {
     }
   })
   const structure = await Promise.all(promiseList)
+
+  console.log('struct', structure)
   return createCatalogyTree(structure[0].data)
 }
 
